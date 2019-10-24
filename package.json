@@ -1,0 +1,38 @@
+{
+  "name": "books_of_my_life_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./bin",
+    "dev": "nodemon ./bin",
+    "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha --exit",
+    "lint": "./node_modules/.bin/eslint src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wesdeveloper/books_of_my_life_backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wesdeveloper/books_of_my_life_backend/issues"
+  },
+  "homepage": "https://github.com/wesdeveloper/books_of_my_life_backend#readme",
+  "dependencies": {
+    "cross-env": "^6.0.3",
+    "fastify": "^2.10.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "mocha": "^6.2.2",
+    "nodemon": "^1.19.4",
+    "prettier": "^1.18.2"
+  }
+}
