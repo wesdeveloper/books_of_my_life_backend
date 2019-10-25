@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./bin",
-    "dev": "nodemon ./bin",
+    "dev": "cross-env NODE_ENV=development nodemon --inspect=0.0.0.0:9229 bin",
     "test": "cross-env NODE_ENV=test ./node_modules/.bin/mocha --exit",
-    "lint": "./node_modules/.bin/eslint src/"
+    "lint": "./node_modules/.bin/eslint src/",
+    "docker:dev-start": "docker-compose up -d",
+    "docker:dev-logs": "docker-compose logs -f"
   },
   "repository": {
     "type": "git",
