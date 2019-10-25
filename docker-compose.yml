@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+  books_of_my_life:
+    image: books_of_my_life_backend
+    build: .
+    restart: always
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      NODE_ENV: development
+      PORT: 5000
+      DB_HOST_DEV: postgres
+      DB_PORT_DEV: 5432
+      DB_USER_DEV: postgres
+      DB_PASS_DEV: postgres
+      DB_NAME_DEV: books_of_my_life_development
+      WAIT_HOSTS: db:5432
+    ports:
+      - '5000:5000'
+      - '9229:9229'
+    command: sh -c "/wait && npm run dev"
+    depends_on:
+      - db
+  db:
+    image: postgres:9.6.2-alpine
+    volumes:
+      - ./database:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: books_of_my_life_development
