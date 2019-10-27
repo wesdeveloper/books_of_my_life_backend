@@ -8,6 +8,8 @@ const routes = async fastify => {
     { preHandler: validateBody(schemas.createUser) },
     userController.createUser,
   );
+
+  fastify.get('/users/:id', userController.getUserById);
 };
 
 module.exports = routes;

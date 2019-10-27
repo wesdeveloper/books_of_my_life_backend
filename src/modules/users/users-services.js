@@ -1,5 +1,6 @@
 const database = require('../database');
 
 const createUser = data => database.User.create(data);
+const getUserById = data => database.User.findOne(data);
 
-module.exports = { createUser };
+module.exports = { createUser, getUserById };

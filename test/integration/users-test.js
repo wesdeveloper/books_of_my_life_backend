@@ -5,6 +5,8 @@ const { clearDatabase } = require('../populate');
 
 const chance = new Chance();
 
+let user;
+
 describe('Users - [TESTS INTEGRATION]', () => {
   after(async () => {
     await clearDatabase();
@@ -26,11 +28,25 @@ describe('Users - [TESTS INTEGRATION]', () => {
         },
       })
       .then(result => {
-        const data = result.json();
+        user = result.json();
         assert.strictEqual(result.statusCode, 201);
-        assert.strictEqual(data.name, payload.name);
-        assert.strictEqual(data.phone, payload.phone);
-        assert.strictEqual(data.email, payload.email);
+        assert.strictEqual(user.name, payload.name);
+        assert.strictEqual(user.phone, payload.phone);
+        assert.strictEqual(user.email, payload.email);
+      });
+  });
+
+  it('Should get a user by id and receive 200', async () => {
+    return app
+      .inject({
+        method: 'GET',
+        url: `/api/users/${user.id}`
+      })
+      .then(result => {
+        const data = result.json();
+        assert.strictEqual(result.statusCode, 200);
+        assert.isObject(data);
+        assert.strictEqual(data.id, user.id);
       });
   });
 });

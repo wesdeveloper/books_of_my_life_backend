@@ -5,4 +5,9 @@ const createUser = async (request, reply) => {
   return reply.status(201).send(user);
 };
 
-module.exports = { createUser };
+const getUserById = async (request, reply) => {
+  const user = await usersServices.getUserById(request.params);
+  return reply.status(200).send(user);
+};
+
+module.exports = { createUser, getUserById };
