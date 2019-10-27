@@ -47,7 +47,7 @@ const validateBody = schema => (req, reply, next) => {
       [],
     );
 
-    return reply.status(400).send({ errors });
+    return reply.status(400).send(errors);
   }
   if (!req.payload) {
     req.payload = {};
