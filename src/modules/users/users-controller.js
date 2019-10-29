@@ -6,7 +6,8 @@ const createUser = async (request, reply) => {
 };
 
 const getUserById = async (request, reply) => {
-  const user = await usersServices.getUserById(request.params);
+  const { id } = request.payload.params;
+  const user = await usersServices.getUserById(id);
   return reply.status(200).send(user);
 };
 
