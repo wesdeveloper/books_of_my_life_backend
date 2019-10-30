@@ -1,5 +1,5 @@
 const { schemas } = require('./users-schemas');
-const { validateBody } = require('../helpers');
+const { validateBody, validateParam } = require('../helpers');
 const userController = require('./users-controller');
 
 const routes = async fastify => {
@@ -7,6 +7,12 @@ const routes = async fastify => {
     '/users',
     { preHandler: validateBody(schemas.createUser) },
     userController.createUser,
+  );
+
+  fastify.get(
+    '/users/:id',
+    { preHandler: validateParam(schemas.id, 'id') },
+    userController.getUserById
   );
 };
 
