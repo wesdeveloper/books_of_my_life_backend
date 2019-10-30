@@ -1,15 +1,13 @@
-const { assert } = require('chai');
-const app = require('../../src');
+import 'should';
+import app from '../../bin';
 
 describe('Health status - [TESTS INTEGRATION]', () => {
   it('Should make a request to health-status route and receive 200', async () => {
-    app
+    return app
       .inject({
         method: 'GET',
         url: '/api/health-status',
       })
-      .then(result => {
-        assert.strictEqual(result.statusCode, 200);
-      });
+      .then(result => result.statusCode.should.be.equal(200));
   });
 });

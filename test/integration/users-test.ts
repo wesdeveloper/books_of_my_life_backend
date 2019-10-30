@@ -1,7 +1,7 @@
-const Chance = require('chance');
-const { assert } = require('chai');
-const app = require('../../src');
-const { clearDatabase } = require('../populate');
+import 'should';
+import { Chance } from 'chance';
+import app from '../../bin';
+import { clearDatabase } from '../populate';
 
 const chance = new Chance();
 
@@ -26,11 +26,9 @@ describe('Users - [TESTS INTEGRATION]', () => {
         },
       })
       .then(result => {
-        const data = result.json();
-        assert.strictEqual(result.statusCode, 201);
-        assert.strictEqual(data.name, payload.name);
-        assert.strictEqual(data.phone, payload.phone);
-        assert.strictEqual(data.email, payload.email);
+        const data = JSON.parse(result.payload);
+        result.statusCode.should.be.eql(201);
+        data.name.should.be.eql(payload.name);
       });
   });
 });
@@ -55,9 +53,9 @@ describe('Test validation properties', () => {
           },
         })
         .then(result => {
-          assert.strictEqual(result.statusCode, 400);
-          const [error] = result.json();
-          assert.strictEqual(error.path, key);
+          result.statusCode.should.be.eql(400);
+          const [error] = JSON.parse(result.payload);
+          error.path.should.be.eql(key);
         });
     });
   });

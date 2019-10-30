@@ -1,4 +1,4 @@
-const usersServices = require('./users-services');
+import usersServices from './users-services';
 
 const createUser = async (request, reply) => {
   try {
@@ -12,4 +12,4 @@ const createUser = async (request, reply) => {
   }
 };
 
-module.exports = { createUser };
+export default { createUser };

@@ -13,7 +13,7 @@ const validateOptions = {
  * @param {*} schema - Schema of the parameter.
  * @param {*} name - Name of the value that needs to match with the schema.
  */
-const validateParam = (schema, name) => (req, res, next) => {
+export const validateParam = (schema, name) => (req, res, next) => {
   const result = Joi.validate({ [name]: req.params[name] }, schema);
   if (result.error) {
     return res.status(400).json(result.error);
@@ -37,7 +37,7 @@ const validateParam = (schema, name) => (req, res, next) => {
  *
  * @param {*} schema - Schema of the payload.
  */
-const validateBody = schema => (req, reply, next) => {
+export const validateBody = schema => (req, reply, next) => {
   const result = Joi.validate(req.body, schema, validateOptions);
 
   if (result.error) {
@@ -69,7 +69,7 @@ const validateBody = schema => (req, reply, next) => {
  * @param {Object} object - Object that will be validate.
  * @param {Object} schema - Schema of the object
  */
-const validateObject = (object, schema) => {
+export const validateObject = (object, schema) => {
   const result = Joi.validate(object, schema, validateOptions);
 
   if (result.error) {
