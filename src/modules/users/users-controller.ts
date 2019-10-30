@@ -12,4 +12,10 @@ const createUser = async (request, reply) => {
   }
 };
 
-export default { createUser };
+const getUserById = async (request, reply) => {
+  const { id } = request.payload.params;
+  const user = await usersServices.getUserById(id);
+  return reply.status(200).send(user);
+};
+
+export default { createUser, getUserById };
