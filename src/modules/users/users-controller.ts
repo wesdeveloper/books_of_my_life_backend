@@ -1,4 +1,4 @@
-const usersServices = require('./users-services');
+import usersServices from './users-services';
 
 const createUser = async (request, reply) => {
   try {
@@ -18,4 +18,4 @@ const getUserById = async (request, reply) => {
   return reply.status(200).send(user);
 };
 
-module.exports = { createUser, getUserById };
+export default { createUser, getUserById };

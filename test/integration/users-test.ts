@@ -1,7 +1,7 @@
-const Chance = require('chance');
-const { assert } = require('chai');
-const app = require('../../src');
-const { clearDatabase } = require('../populate');
+import 'should';
+import { Chance } from 'chance';
+import app from '../../bin';
+import { clearDatabase } from '../populate';
 
 const chance = new Chance();
 
@@ -28,11 +28,9 @@ describe('Users - [TESTS INTEGRATION]', () => {
         },
       })
       .then(result => {
-        user = result.json();
-        assert.strictEqual(result.statusCode, 201);
-        assert.strictEqual(user.name, payload.name);
-        assert.strictEqual(user.phone, payload.phone);
-        assert.strictEqual(user.email, payload.email);
+        user = JSON.parse(result.payload);
+        result.statusCode.should.be.eql(201);
+        user.name.should.be.eql(payload.name);
       });
   });
 
@@ -40,13 +38,12 @@ describe('Users - [TESTS INTEGRATION]', () => {
     return app
       .inject({
         method: 'GET',
-        url: `/api/users/${user.id}`
+        url: `/api/users/${user.id}`,
       })
       .then(result => {
-        const data = result.json();
-        assert.strictEqual(result.statusCode, 200);
-        assert.isObject(data);
-        assert.strictEqual(data.id, user.id);
+        const data = JSON.parse(result.payload);
+        result.statusCode.should.be.eql(200);
+        data.id.should.be.eql(user.id);
       });
   });
 });
@@ -71,9 +68,9 @@ describe('Test validation properties', () => {
           },
         })
         .then(result => {
-          assert.strictEqual(result.statusCode, 400);
-          const [error] = result.json();
-          assert.strictEqual(error.path, key);
+          result.statusCode.should.be.eql(400);
+          const [error] = JSON.parse(result.payload);
+          error.path.should.be.eql(key);
         });
     });
   });

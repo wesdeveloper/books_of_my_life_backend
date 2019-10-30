@@ -1,20 +1,20 @@
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
+import * as fs from 'fs';
+import * as path from 'path';
+import { Sequelize } from 'sequelize';
 
 const config = require('../config');
 
-const db = {};
+const db: any = {};
 
 const sequelize = new Sequelize(
   config.database,
   config.username,
   config.password,
-  config,
+  { dialect: 'postgres', host: config.host },
 );
 
 fs.readdirSync(__dirname).forEach(folder => {
-  if (folder !== 'database.js' && folder !== 'helpers.js') {
+  if (folder !== 'database.ts' && folder !== 'helpers.ts') {
     fs.readdirSync(path.resolve(__dirname, folder))
       .filter(file => file.includes('model'))
       .forEach(file => {
@@ -33,4 +33,4 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-module.exports = db;
+export default db;
