@@ -37,7 +37,7 @@ export const validateParam = (schema, name) => (req, res, next) => {
  *
  * @param {*} schema - Schema of the payload.
  */
-export const validateBody = schema => (req, reply, next) => {
+export const validateBody = schema => (req, res, next) => {
   const result = Joi.validate(req.body, schema, validateOptions);
 
   if (result.error) {
@@ -47,17 +47,8 @@ export const validateBody = schema => (req, reply, next) => {
       [],
     );
 
-    return reply.status(400).send(errors);
+    return res.status(400).send(errors);
   }
-  if (!req.payload) {
-    req.payload = {};
-  }
-  if (!req.payload.body) {
-    req.payload.body = {};
-  }
-
-  req.payload.body = result.value;
-  delete req.body;
 
   return next();
 };

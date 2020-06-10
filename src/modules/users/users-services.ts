@@ -1,6 +1,7 @@
-import database from '../database';
+import userModel from './user-model';
 
-const createUser = async data => database.User.create(data);
-const getUserById = async id => database.User.findOne({ id });
+const createUser = async data => userModel.createUser(data);
+const getUserById = async (id: number) => User.findOne(id);
+const getAll = async () => userModel.getAll();
 
-export default { createUser, getUserById };
+export default { createUser, getUserById, getAll };

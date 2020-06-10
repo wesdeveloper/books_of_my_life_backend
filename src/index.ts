@@ -1,22 +1,21 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import * as fastify from 'fastify';
+import * as express from 'express';
+import * as logger from 'morgan';
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+import './modules/database';
+
 import usersRoutes from './modules/users/users-routes';
 
-// Require the framework and instantiate it
-const server = fastify({
-  logger: true,
-});
+// Create Express server
+const app = express();
 
-server.register(require('fastify-formbody'));
-
-server.register(usersRoutes, {
-  prefix: '/api',
-});
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use('/api', usersRoutes);
 
 // Declare a route
-server.get('/api/health-status', (request, reply) => {
-  reply.send();
-});
+app.get('/_healthcheck', (req, res) => res.send('It\s ok...'));
 
-export default server;
+export default app;

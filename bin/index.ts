@@ -1,15 +1,12 @@
 import app from '../src';
 
-const { PORT = '5000' } = process.env;
+const { PORT } = process.env;
 
-// Run the server!
-app.listen(parseInt(PORT, 10), '0.0.0.0', (err, address) => {
-  if (err) {
-    app.log.error(err);
-    process.exit(1);
-  }
+app.set("port", process.env.PORT || 5000);
 
-  app.log.info(`server listening on ${address}`);
+const server = app.listen(app.get("port"), () => {
+  console.log(`App is running at http://localhost:${app.get("port")} in ${app.get("env")} mode`);
+  console.log("  Press CTRL-C to stop\n");
 });
 
-export default app;
+export default server;
